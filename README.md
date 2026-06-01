@@ -1,5 +1,7 @@
 # Crawler Data Management API（Spring Boot + MS SQL 版）
 
+[![CI](https://github.com/dalaba7046/crawler-data-management-api-java/actions/workflows/ci.yml/badge.svg)](https://github.com/dalaba7046/crawler-data-management-api-java/actions/workflows/ci.yml)
+
 以 Spring Boot 3 層架構建立的後端 API，管理爬蟲落地後的 SKU 主檔資料。本專案由原本的 FastAPI 版（[crawler-data-management-api](https://github.com/dalaba7046/crawler-data-management-api)）改寫為 Java / Spring Boot，主資料庫採用 Microsoft SQL Server。
 
 重點不在爬蟲本身，而是練習資料進入資料庫後，如何透過 Controller、Service、Repository 分層與 DTO 驗證，提供穩定、可維護的查詢與管理能力。
