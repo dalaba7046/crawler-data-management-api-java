@@ -1,0 +1,14 @@
+target/
+*.class
+*.log
+.idea/
+*.iml
+.vscode/
+.DS_Store
+frontend/node_modules/
+frontend/dist/
+.env
+
+# 內部文件：面試準備 / 規劃，含特定公司資訊與話術，不公開
+規劃書.md
+CLAUDE.md

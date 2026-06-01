@@ -1,0 +1,43 @@
+# Docker Compose：一鍵起 MS SQL Server + Spring Boot API + Vue 前端
+# 對齊 FastAPI 版的 docker compose（PostgreSQL 換成 MS SQL，對齊京城 JD）
+#
+#   docker compose up --build
+#
+# 起來後：
+#   API        http://localhost:8000
+#   Swagger    http://localhost:8000/swagger-ui.html
+#   前端        http://localhost:5173
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Your_password123"
+    ports:
+      - "1433:1433"
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Your_password123 -Q 'SELECT 1' || exit 1"]
+      interval: 10s
+      retries: 10
+
+  api:
+    build: .
+    environment:
+      SPRING_PROFILES_ACTIVE: mssql
+      MSSQL_HOST: mssql
+      MSSQL_PORT: "1433"
+      MSSQL_DB: crawler_data
+      MSSQL_USER: sa
+      MSSQL_PASSWORD: "Your_password123"
+    ports:
+      - "8000:8000"
+    depends_on:
+      mssql:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api
